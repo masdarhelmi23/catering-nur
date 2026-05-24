@@ -58,7 +58,7 @@ Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogle']);
 |--------------------------------------------------------------------------
 | Mengamankan alur transaksi booking katering dan gerbang pembayaran Midtrans.
 */
-Route::middleware(['auth', 'role:customer'])->group(function () {
+Route::middleware(['auth', 'role:user'])->group(function () {
     
     // Alur Proses Pengisian Form Pemesanan Menu
     Route::get('/proses-pesanan/{id}', [BookingController::class, 'showForm'])->name('pesanan.form');

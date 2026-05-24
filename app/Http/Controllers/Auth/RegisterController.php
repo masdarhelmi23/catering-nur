@@ -34,13 +34,13 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'admin', // Otomatis diset admin agar kamu bisa langsung tes masuk /admin
+            'role' => 'user', // Otomatis diset admin agar kamu bisa langsung tes masuk /admin
         ]);
 
         // Otomatis loginkan user setelah sukses mendaftar
         Auth::login($user);
 
         // Arahkan ke dashboard admin utama
-        return redirect('/admin');
+        return redirect('/');
     }
 }
