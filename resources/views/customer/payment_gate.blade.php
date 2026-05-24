@@ -58,29 +58,20 @@
     <script type="text/javascript">
         var payButton = document.getElementById('pay-button');
         payButton.addEventListener('click', function () {
-            
-            // JALUR INSTAN LOCALHOST:
-            // Begitu tombol diklik, kita beri jeda 1.5 detik (1500ms) agar pop-up Midtrans muncul duluan di depan,
-            // setelah itu form lokal kita langsung otomatis submit di latar belakang untuk memotong stok!
-            setTimeout(function() {
-                executeSubmitLokal();
-            }, 1500);
-
             window.snap.pay('{{ $order->snap_token }}', {
                 onSuccess: function (result) { 
+                    // Hanya jalankan ini jika pembayaran benar-benar BERHASIL
                     executeSubmitLokal(); 
                 },
                 onPending: function (result) { 
-                    executeSubmitLokal(); 
+                    // Jangan panggil executeSubmitLokal di sini
+                    alert("Menunggu pembayaran Anda."); 
                 },
                 onError: function (result) { 
-                    alert("Proses pembayaran dibatalkan."); 
+                    alert("Pembayaran gagal!"); 
                 },
                 onClose: function () { 
-                    executeSubmitLokal(); 
-                },
-                onFinished: function (result) { 
-                    executeSubmitLokal(); 
+                    alert("Anda menutup pembayaran. Silakan selesaikan agar pesanan terkonfirmasi."); 
                 }
             });
         });
